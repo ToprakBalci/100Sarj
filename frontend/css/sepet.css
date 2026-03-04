@@ -1,0 +1,121 @@
+.sepet-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 40px;
+}
+
+.sepet-container h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #c9a84c;
+  padding-bottom: 10px;
+}
+
+.sepet-icerik {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.sepet-urunler { flex: 1; }
+
+.sepet-urun {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.sepet-urun img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #1a1a1a;
+}
+
+.sepet-urun-bilgi { flex: 1; }
+.sepet-urun-bilgi h3 { font-size: 16px; margin-bottom: 5px; }
+.sepet-urun-bilgi .price { color: #c9a84c; font-weight: 700; }
+
+.adet-kontrol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adet-kontrol button {
+  width: 30px; height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adet-kontrol button:hover { background: #c9a84c; color: #fff; border-color: #c9a84c; }
+.adet-kontrol span { font-weight: 700; font-size: 16px; }
+
+.sil-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ÖZET */
+.sepet-ozet {
+  width: 320px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.sepet-ozet h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.ozet-satir {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.ozet-satir.toplam {
+  font-weight: 700;
+  font-size: 18px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+  margin-top: 5px;
+  color: #c9a84c;
+}
+
+.devam-btn {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  color: #c9a84c;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.bos-sepet {
+  text-align: center;
+  padding: 60px;
+  color: #888;
+  font-size: 18px;
+}

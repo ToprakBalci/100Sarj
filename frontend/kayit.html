@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kayıt Ol | 100Şarj</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #222; }
+
+    .top-bar { background: #fff; border-bottom: 1px solid #eee; padding: 8px 40px; display: flex; gap: 28px; font-size: 13px; color: #444; }
+    .top-bar span { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .top-bar span:hover { color: #c9a227; }
+
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid #eee; background: #fff; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-crown { color: #c9a227; font-size: 28px; }
+    .logo-text { font-size: 26px; font-weight: 900; color: #c9a227; letter-spacing: 1px; }
+    .search-bar { display: flex; border: 1.5px solid #ddd; border-radius: 4px; overflow: hidden; width: 380px; }
+    .search-bar input { flex: 1; padding: 10px 16px; border: none; outline: none; font-size: 14px; }
+    .search-bar button { background: #fff; border: none; padding: 0 16px; cursor: pointer; color: #888; font-size: 16px; }
+    .header-icons { display: flex; align-items: center; gap: 20px; }
+    .header-icons a { color: #333; font-size: 20px; text-decoration: none; position: relative; }
+    .header-icons a:hover { color: #c9a227; }
+    .badge { position: absolute; top: -8px; right: -10px; background: #c9a227; color: #fff; font-size: 10px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+    .navbar { display: flex; justify-content: center; gap: 80px; padding: 16px 40px; border-bottom: 1px solid #eee; }
+    .navbar a { text-decoration: none; color: #222; font-size: 15px; font-weight: 500; }
+    .navbar a:hover { color: #c9a227; }
+
+    .kayit-wrapper { max-width: 620px; margin: 50px auto 60px; padding: 40px 50px; border: 1px solid #e0e0e0; }
+
+    .kayit-wrapper h2 { font-size: 18px; font-weight: 700; color: #222; padding-bottom: 14px; border-bottom: 1.5px solid #222; margin-bottom: 28px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 700; color: #c0392b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .form-group input, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 2px; font-size: 14px; color: #333; outline: none; transition: border-color 0.2s; background: #fff; }
+    .form-group input:focus, .form-group select:focus { border-color: #c9a227; }
+    .form-group input::placeholder { color: #bbb; }
+
+    .radio-section { margin-bottom: 22px; }
+    .radio-section .section-label { display: block; font-size: 12px; font-weight: 700; color: #c0392b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .radio-group { display: flex; gap: 24px; }
+    .radio-group label { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333; cursor: pointer; }
+    .radio-group input[type="radio"] { accent-color: #222; width: 18px; height: 18px; cursor: pointer; }
+
+    .sozlesme-group { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+    .sozlesme-group input[type="checkbox"] { accent-color: #222; width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; }
+    .sozlesme-group label { font-size: 14px; color: #444; cursor: pointer; }
+    .sozlesme-group label a { color: #c9a227; text-decoration: none; font-weight: 600; }
+
+    .btn-gold-full { width: 100%; background: #c9a227; color: #fff; border: none; padding: 16px; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background 0.2s; }
+    .btn-gold-full:hover { background: #b8911f; }
+
+    .hata-mesaj { background: #fdecea; color: #c0392b; padding: 12px 16px; border-radius: 2px; font-size: 13px; margin-bottom: 18px; display: none; border-left: 3px solid #c0392b; }
+    .hata-mesaj.aktif { display: block; }
+    .basari-mesaj { background: #d1e7dd; color: #0f5132; padding: 12px 16px; border-radius: 2px; font-size: 13px; margin-bottom: 18px; display: none; border-left: 3px solid #0f5132; }
+    .basari-mesaj.aktif { display: block; }
+
+    .sosyal-section { text-align: center; padding: 30px 20px; border-bottom: 1px solid #eee; }
+    .sosyal-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+    .sosyal-section a { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border: 1.5px solid #ccc; border-radius: 50%; color: #555; text-decoration: none; }
+    .sosyal-section a:hover { border-color: #c9a227; color: #c9a227; }
+
+    .advantages { display: flex; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .adv-box { flex: 1; display: flex; align-items: center; gap: 14px; padding: 22px 30px; border-right: 1px solid #eee; font-size: 14px; font-weight: 600; color: #333; }
+    .adv-box:last-child { border-right: none; }
+    .adv-box i { font-size: 28px; color: #555; }
+
+    .footer { background: #c9a227; color: #fff; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; padding: 50px 60px; }
+    .footer h4 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+    .footer a { display: block; color: #fff; text-decoration: none; font-size: 13px; margin-bottom: 8px; opacity: 0.9; }
+    .footer a:hover { opacity: 1; text-decoration: underline; }
+    .footer p { font-size: 13px; opacity: 0.9; margin-bottom: 8px; }
+    .footer-bottom { text-align: center; padding: 16px; font-size: 12px; color: #888; border-top: 1px solid #eee; }
+
+    .phone-btn { position: fixed; bottom: 30px; left: 20px; background: #222; color: #fff; padding: 12px 20px; border-radius: 50px; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 8px; z-index: 999; font-weight: 600; }
+    .whatsapp-btn { position: fixed; bottom: 30px; right: 20px; background: #25d366; color: #fff; width: 52px; height: 52px; border-radius: 50%; font-size: 24px; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 999; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <span><i class="fas fa-phone"></i> 0532 519 72 54</span>
+    <span><i class="fas fa-truck"></i> Kargo Takibi</span>
+    <span><i class="fas fa-star"></i> Referanslar</span>
+    <span><i class="fas fa-images"></i> Galeri</span>
+    <span><i class="fas fa-store"></i> Bayilik Başvurusu</span>
+  </div>
+
+  <header class="header">
+    <a href="index.html" class="logo">
+      <span class="logo-crown"><i class="fas fa-crown"></i></span>
+      <span class="logo-text">100ŞARJ</span>
+    </a>
+    <div class="search-bar">
+      <input type="text" placeholder="Ürün arama..."/>
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="header-icons">
+      <a href="giris.html"><i class="fas fa-user"></i></a>
+      <a href="#"><i class="fas fa-heart"></i><span class="badge">0</span></a>
+      <a href="sepet.html"><i class="fas fa-shopping-cart"></i><span class="badge">0</span></a>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a>
+    <a href="urunler.html?kategori=sarj-standi">Şarj Standı</a>
+    <a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a>
+    <a href="urunler.html?kategori=usb-kablo">USB Kablo</a>
+  </nav>
+
+  <div class="kayit-wrapper">
+    <h2>Kayıt Ol</h2>
+
+    <div id="hatamesaj" class="hata-mesaj"></div>
+    <div id="basarimesaj" class="basari-mesaj"></div>
+
+    <div class="radio-section">
+      <span class="section-label">* MÜŞTERİ GRUBU</span>
+      <div class="radio-group">
+        <label><input type="radio" name="musteriGrubu" value="bireysel" checked/> Bireysel</label>
+        <label><input type="radio" name="musteriGrubu" value="kurumsal"/> Kurumsal</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>* ADINIZ</label>
+      <input type="text" id="kayitAd" placeholder="Adınız"/>
+    </div>
+
+    <div class="form-group">
+      <label>* SOYADINIZ</label>
+      <input type="text" id="kayitSoyad" placeholder="Soyadınız"/>
+    </div>
+
+    <div class="form-group">
+      <label>* E-POSTA</label>
+      <input type="email" id="kayitEmail" placeholder="E-Posta"/>
+    </div>
+
+    <div class="form-group">
+      <label>* TELEFON</label>
+      <input type="tel" id="kayitTelefon" placeholder="Telefon"/>
+    </div>
+
+    <div class="form-group">
+      <label>* T.C. KİMLİK NO</label>
+      <input type="text" id="kayitTc" placeholder="T.C. Kimlik No" maxlength="11"/>
+    </div>
+
+    <div class="form-group">
+      <label>* ADRES 1</label>
+      <input type="text" id="kayitAdres" placeholder="Adres 1"/>
+    </div>
+
+    <div class="form-group">
+      <label>* İLÇE / SEMT</label>
+      <input type="text" id="kayitIlce" placeholder="İlçe / Semt"/>
+    </div>
+
+    <div class="form-group">
+      <label>* ÜLKE</label>
+      <select id="kayitUlke">
+        <option value="Türkiye" selected>Türkiye</option>
+        <option value="Diğer">Diğer</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>* ŞEHİR</label>
+      <select id="kayitSehir">
+        <option value="">--- Seçiniz ---</option>
+        <option>Adana</option><option>Adıyaman</option><option>Afyonkarahisar</option>
+        <option>Ağrı</option><option>Aksaray</option><option>Amasya</option>
+        <option>Ankara</option><option>Antalya</option><option>Ardahan</option>
+        <option>Artvin</option><option>Aydın</option><option>Balıkesir</option>
+        <option>Bartın</option><option>Batman</option><option>Bayburt</option>
+        <option>Bilecik</option><option>Bingöl</option><option>Bitlis</option>
+        <option>Bolu</option><option>Burdur</option><option>Bursa</option>
+        <option>Çanakkale</option><option>Çankırı</option><option>Çorum</option>
+        <option>Denizli</option><option>Diyarbakır</option><option>Düzce</option>
+        <option>Edirne</option><option>Elazığ</option><option>Erzincan</option>
+        <option>Erzurum</option><option>Eskişehir</option><option>Gaziantep</option>
+        <option>Giresun</option><option>Gümüşhane</option><option>Hakkari</option>
+        <option>Hatay</option><option>Iğdır</option><option>Isparta</option>
+        <option>İstanbul</option><option>İzmir</option><option>Kahramanmaraş</option>
+        <option>Karabük</option><option>Karaman</option><option>Kars</option>
+        <option>Kastamonu</option><option>Kayseri</option><option>Kilis</option>
+        <option>Kırıkkale</option><option>Kırklareli</option><option>Kırşehir</option>
+        <option>Kocaeli</option><option>Konya</option><option>Kütahya</option>
+        <option>Malatya</option><option>Manisa</option><option>Mardin</option>
+        <option>Mersin</option><option>Muğla</option><option>Muş</option>
+        <option>Nevşehir</option><option>Niğde</option><option>Ordu</option>
+        <option>Osmaniye</option><option>Rize</option><option>Sakarya</option>
+        <option>Samsun</option><option>Şanlıurfa</option><option>Siirt</option>
+        <option>Sinop</option><option>Şırnak</option><option>Sivas</option>
+        <option>Tekirdağ</option><option>Tokat</option><option>Trabzon</option>
+        <option>Tunceli</option><option>Uşak</option><option>Van</option>
+        <option>Yalova</option><option>Yozgat</option><option>Zonguldak</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>* PAROLA</label>
+      <input type="password" id="kayitSifre" placeholder="Parola"/>
+    </div>
+
+    <div class="form-group">
+      <label>* PAROLA (TEKRAR)</label>
+      <input type="password" id="kayitSifreTekrar" placeholder="Parola (Tekrar)"/>
+    </div>
+
+    <div class="radio-section">
+      <span class="section-label">BÜLTEN ABONELİĞİ</span>
+      <div class="radio-group">
+        <label><input type="radio" name="bulten" value="evet"/> Evet</label>
+        <label><input type="radio" name="bulten" value="hayir" checked/> Hayır</label>
+      </div>
+    </div>
+
+    <div class="sozlesme-group">
+      <input type="checkbox" id="sozlesme"/>
+      <label for="sozlesme"><a href="#">Üyelik Sözleşmesi</a>'ni okudum ve kabul ediyorum.</label>
+    </div>
+
+    <button class="btn-gold-full" onclick="kayitOl()">Kayıt Ol</button>
+  </div>
+
+  <div class="sosyal-section">
+    <h3>Bizi Sosyal Medyadan Takip Edin!</h3>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+
+  <section class="advantages">
+    <div class="adv-box"><i class="fas fa-shopping-cart"></i><span>Müşteri Memnuniyeti</span></div>
+    <div class="adv-box"><i class="fas fa-truck"></i><span>Hızlı Teslimat</span></div>
+    <div class="adv-box"><i class="fas fa-shield-alt"></i><span>Güvenli Alışveriş</span></div>
+    <div class="adv-box"><i class="fas fa-undo"></i><span>Kolay İade</span></div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <h4>Kategoriler</h4>
+      <a href="#">100Şarj Cihazları</a><a href="#">Şarj Adaptörleri</a>
+      <a href="#">Şarj Standı</a><a href="#">USB Kablo</a>
+    </div>
+    <div>
+      <h4>Hızlı Erişim</h4>
+      <a href="#">Hesabım</a><a href="#">İletişim</a>
+      <a href="#">Alışveriş Sepeti</a><a href="#">Kasaya Git</a>
+      <a href="#">Üyelik Sözleşmesi</a>
+    </div>
+    <div>
+      <h4>Önemli Bilgiler</h4>
+      <a href="#">Hakkımızda</a><a href="#">Siparişlerim</a>
+      <a href="#">Alışveriş Listem</a><a href="#">Şifremi Unuttum</a>
+    </div>
+    <div>
+      <h4>Bize Ulaşın</h4>
+      <p><i class="fas fa-map-marker-alt"></i> Selahaddin Eyyubi Cad. No.20 Başiskele/KOCAELİ</p>
+      <p><i class="fas fa-phone"></i> 0532 519 72 54</p>
+      <p><i class="fas fa-envelope"></i> info@100sarj.com</p>
+    </div>
+  </footer>
+  <div class="footer-bottom">Bu site, <strong>BilgiKurumsal</strong> E-Ticaret Yazılımları ile hazırlanmıştır.</div>
+
+  <a href="tel:05325197254" class="phone-btn"><i class="fas fa-phone"></i> 0 532 519 72 54</a>
+  <a href="https://wa.me/905325197254" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <script>
+    async function kayitOl() {
+      const hataEl = document.getElementById('hatamesaj');
+      const basariEl = document.getElementById('basarimesaj');
+      hataEl.classList.remove('aktif');
+      basariEl.classList.remove('aktif');
+
+      const ad = document.getElementById('kayitAd').value.trim();
+      const soyad = document.getElementById('kayitSoyad').value.trim();
+      const email = document.getElementById('kayitEmail').value.trim();
+      const telefon = document.getElementById('kayitTelefon').value.trim();
+      const tc = document.getElementById('kayitTc').value.trim();
+      const adres = document.getElementById('kayitAdres').value.trim();
+      const ilce = document.getElementById('kayitIlce').value.trim();
+      const ulke = document.getElementById('kayitUlke').value;
+      const sehir = document.getElementById('kayitSehir').value;
+      const sifre = document.getElementById('kayitSifre').value;
+      const sifreTekrar = document.getElementById('kayitSifreTekrar').value;
+      const sozlesme = document.getElementById('sozlesme').checked;
+      const musteriGrubu = document.querySelector('input[name="musteriGrubu"]:checked').value;
+      const bulten = document.querySelector('input[name="bulten"]:checked').value;
+
+      if (!ad || !soyad || !email || !telefon || !sifre) {
+        hataEl.textContent = 'Lütfen tüm zorunlu alanları doldurunuz.';
+        hataEl.classList.add('aktif');
+        return;
+      }
+      if (sifre !== sifreTekrar) {
+        hataEl.textContent = 'Parolalar eşleşmiyor.';
+        hataEl.classList.add('aktif');
+        return;
+      }
+      if (sifre.length < 6) {
+        hataEl.textContent = 'Parola en az 6 karakter olmalıdır.';
+        hataEl.classList.add('aktif');
+        return;
+      }
+      if (!sozlesme) {
+        hataEl.textContent = "Üyelik Sözleşmesi'ni kabul etmeniz gerekmektedir.";
+        hataEl.classList.add('aktif');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/kayit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ad, soyad, email, telefon, tc, adres, ilce, ulke, sehir, sifre, musteriGrubu, bulten })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          hataEl.textContent = data.mesaj || 'Kayıt başarısız.';
+          hataEl.classList.add('aktif');
+        } else {
+          basariEl.textContent = 'Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...';
+          basariEl.classList.add('aktif');
+          setTimeout(() => window.location.href = '/giris.html', 2000);
+        }
+      } catch (e) {
+        hataEl.textContent = 'Sunucuya bağlanılamadı.';
+        hataEl.classList.add('aktif');
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>100Şarj | Masaüstü Telefon Şarj Cihazı</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ÜST BAR -->
+  <div class="top-bar">
+    <span><i class="fas fa-phone"></i> 0532 519 72 54</span>
+    <span><i class="fas fa-truck"></i> Kargo Takibi</span>
+    <span><i class="fas fa-star"></i> Referanslar</span>
+    <span><i class="fas fa-images"></i> Galeri</span>
+    <span><i class="fas fa-store"></i> Bayilik Başvurusu</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <img src="images/logo.png" alt="100Şarj Logo" onerror="this.style.display='none'"/>
+      <span class="logo-text">100ŞARJ</span>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Ürün arama..." id="searchInput"/>
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="header-icons">
+      <a href="#" onclick="profilGit()"><i class="fas fa-user"></i></a>
+      <a href="#" class="wishlist-icon"><i class="fas fa-heart"></i><span class="badge" id="wishlistCount">0</span></a>
+      <a href="sepet.html" class="cart-icon">
+  <i class="fas fa-shopping-cart"></i>
+  <span class="badge" id="cartCount">0</span>
+  <div class="cart-dropdown" id="cartDropdown">
+    <h4>Sepetim</h4>
+    <div id="cartDropdownItems">
+      <p class="cart-dropdown-bos">Sepetiniz boş</p>
+    </div>
+    <a href="sepet.html" class="cart-dropdown-btn">Sepete Git</a>
+  </div>
+</a>
+    </div>
+  </header>
+
+  <!-- NAVİGASYON -->
+  <nav class="navbar">
+    <a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a>
+    <a href="urunler.html?kategori=sarj-standi">Şarj Standı</a>
+    <a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a>
+    <a href="urunler.html?kategori=usb-kablo">USB Kablo</a>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>%100 Şarj Garantisi</h1>
+      <p>Cafe, restoran ve işletmenize özel masaüstü şarj cihazları</p>
+      <a href="urunler.html" class="btn-gold">Ürünleri İncele</a>
+    </div>
+  </section>
+
+  <!-- ÜRÜN ÖZELLİKLERİ -->
+  <section class="features">
+    <div class="feature-box gold">
+      <h2>%100 Şarj Cihazı</h2>
+      <ul>
+        <li>40-55 dk'da telefonu %100'e kadar doldurur</li>
+        <li>Type-C ve Lightning çıkışları mevcuttur</li>
+        <li>30.000mA Polymer Lityum Pil ile çalışır</li>
+        <li>Tek kullanım ücreti 60-80 TL arasında</li>
+        <li>Ücretsiz müşteri hizmeti seçeneği</li>
+        <li>6-10 saat şarj süresi</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ÜRÜNLER -->
+  <section class="products-section">
+    <h2>Ürünler</h2>
+    <div class="products-grid" id="productsGrid">
+      <!-- Ürünler JS ile yüklenecek -->
+      <div class="product-card placeholder">
+        <div class="product-img"></div>
+        <h3>100Şarj Masaüstü Cihaz</h3>
+        <p class="price">Fiyat için arayın</p>
+        <button class="btn-gold" onclick="sepeteEkle(this)">Sepete Ekle</button>
+      </div>
+      <div class="product-card placeholder">
+        <div class="product-img"></div>
+        <h3>Şarj Standı</h3>
+        <p class="price">Fiyat için arayın</p>
+        <button class="btn-gold" onclick="sepeteEkle(this)">Sepete Ekle</button>
+      </div>
+      <div class="product-card placeholder">
+        <div class="product-img"></div>
+        <h3>HW25 Hızlı Şarj Adaptörü</h3>
+        <p class="price">Fiyat için arayın</p>
+        <button class="btn-gold" onclick="sepeteEkle(this)">Sepete Ekle</button>
+      </div>
+      <div class="product-card placeholder">
+        <div class="product-img"></div>
+        <h3>USB-C Kablo</h3>
+        <p class="price">Fiyat için arayın</p>
+        <button class="btn-gold" onclick="sepeteEkle(this)">Sepete Ekle</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section class="blog-section">
+    <h2>Blog</h2>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <span class="blog-date">4 Eylül</span>
+        <h3>Kafeler için Şarj Makinesi</h3>
+        <p>Kafe Şarj Makinesi – 100şarj Masaüstü Şarj Cihazı Kafelere şarj imkânı sunarak müşteri memnuniyetini artırın!</p>
+        <a href="#">Devamını Oku</a>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <span class="blog-date">1 Eylül</span>
+        <h3>Masaüstü Cafe Şarj Cihazı</h3>
+        <p>Müşterilerinizin en çok ihtiyaç duyduğu anda yanında olun! Masaüstü Cafe Şarj Cihazı, cafe, restoran ve otel için.</p>
+        <a href="#">Devamını Oku</a>
+      </div>
+      <div class="blog-card">
+        <div class="blog-img"></div>
+        <span class="blog-date">1 Eylül</span>
+        <h3>Cafe ve Restoranlar İçin Telefon Şarj Ünitesi</h3>
+        <p>Günümüzde akıllı telefonlar hayatımızın ayrılmaz bir parçası haline geldi.</p>
+        <a href="#">Devamını Oku</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÜCRETSİZ KURULUM BANNER -->
+  <section class="banner-gold">
+    <a href="tel:05325197254">Ücretsiz Kurulum İstiyorum</a>
+  </section>
+
+  <!-- AVANTAJLAR -->
+  <section class="advantages">
+    <div class="adv-box"><i class="fas fa-shopping-cart"></i><p>Müşteri Memnuniyeti</p></div>
+    <div class="adv-box"><i class="fas fa-truck"></i><p>Hızlı Teslimat</p></div>
+    <div class="adv-box"><i class="fas fa-shield-alt"></i><p>Güvenli Alışveriş</p></div>
+    <div class="adv-box"><i class="fas fa-undo"></i><p>Kolay İade</p></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-col">
+      <h4>Kategoriler</h4>
+      <a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a>
+      <a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a>
+      <a href="urunler.html?kategori=sarj-standi">Şarj Standı</a>
+      <a href="urunler.html?kategori=usb-kablo">USB Kablo</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hızlı Erişim</h4>
+      <a href="hesabim.html">Hesabım</a>
+      <a href="iletisim.html">İletişim</a>
+      <a href="sepet.html">Alışveriş Sepeti</a>
+      <a href="sepet.html">Kasaya Git</a>
+    </div>
+    <div class="footer-col">
+      <h4>Önemli Bilgiler</h4>
+      <a href="hakkimizda.html">Hakkımızda</a>
+      <a href="hesabim.html">Siparişlerim</a>
+      <a href="hesabim.html">Alışveriş Listem</a>
+    </div>
+    <div class="footer-col">
+      <h4>Bize Ulaşın</h4>
+      <p><i class="fas fa-map-marker-alt"></i> Selahaddin Eyyubi Cad. No.20 Başiskele/KOCAELİ</p>
+      <p><i class="fas fa-phone"></i> 0532 519 72 54</p>
+      <p><i class="fas fa-envelope"></i> info@100sarj.com</p>
+    </div>
+  </footer>
+
+  <!-- TELEFON BUTONU -->
+  <a href="tel:05325197254" class="phone-btn"><i class="fas fa-phone"></i> 0 532 519 72 54</a>
+
+  <!-- WHATSAPP BUTONU -->
+  <a href="https://wa.me/905325197254" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <script src="js/main.js">
+    function profilGit() {
+  const token = localStorage.getItem('token');
+  if (token) {
+    window.location.href = 'hesabim.html';
+  } else {
+    window.location.href = 'giris.html';
+  }
+}
+  </script>
+</body>
+</html>

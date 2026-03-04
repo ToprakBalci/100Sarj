@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel | 100Şarj</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">
+      <a href="index.html"><span class="logo-text">100ŞARJ</span></a>
+      <span class="admin-badge">Admin Panel</span>
+    </div>
+    <button class="btn-gold" onclick="cikisYap()">Çıkış Yap</button>
+  </header>
+
+  <div class="admin-container">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <ul>
+        <li class="active" onclick="sekmeAc('urunler')"><i class="fas fa-box"></i> Ürünler</li>
+        <li onclick="sekmeAc('siparisler')"><i class="fas fa-shopping-bag"></i> Siparişler</li>
+        <li onclick="sekmeAc('urun-ekle')"><i class="fas fa-plus"></i> Ürün Ekle</li>
+      </ul>
+    </aside>
+
+    <!-- İÇERİK -->
+    <main class="admin-icerik">
+
+      <!-- ÜRÜNLER -->
+      <div id="tab-urunler" class="tab aktif">
+        <h2>Ürün Listesi</h2>
+        <table class="admin-tablo">
+          <thead>
+            <tr>
+              <th>Ürün Adı</th>
+              <th>Kategori</th>
+              <th>Fiyat</th>
+              <th>Stok</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="urunTablo">
+            <tr><td colspan="5" style="text-align:center">Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SİPARİŞLER -->
+      <div id="tab-siparisler" class="tab">
+        <h2>Siparişler</h2>
+        <table class="admin-tablo">
+          <thead>
+            <tr>
+              <th>Sipariş ID</th>
+              <th>Müşteri</th>
+              <th>Toplam</th>
+              <th>Durum</th>
+              <th>Tarih</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="siparisTablo">
+            <tr><td colspan="6" style="text-align:center">Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ÜRÜN EKLE -->
+      <div id="tab-urun-ekle" class="tab">
+        <h2>Yeni Ürün Ekle</h2>
+        <div class="urun-form">
+          <div id="formHata" class="hata-mesaj"></div>
+          <div id="formBasari" class="basari-mesaj"></div>
+          <div class="form-group">
+            <label>Ürün Adı</label>
+            <input type="text" id="urunAd" placeholder="Ürün adı"/>
+          </div>
+          <div class="form-group">
+            <label>Açıklama</label>
+            <textarea id="urunAciklama" rows="4" placeholder="Ürün açıklaması"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Fiyat (TL)</label>
+            <input type="number" id="urunFiyat" placeholder="0"/>
+          </div>
+          <div class="form-group">
+            <label>Stok</label>
+            <input type="number" id="urunStok" placeholder="0"/>
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select id="urunKategori">
+              <option value="100sarj-cihazlari">100Şarj Cihazları</option>
+              <option value="sarj-standi">Şarj Standı</option>
+              <option value="sarj-adaptoru">Şarj Adaptörleri</option>
+              <option value="usb-kablo">USB Kablo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Resim URL</label>
+            <input type="text" id="urunResim" placeholder="https://..."/>
+          </div>
+          <button class="btn-gold" onclick="urunEkle()">Ürün Ekle</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

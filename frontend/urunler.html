@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ürünler | 100Şarj</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/urunler.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <div class="top-bar">
+    <span><i class="fas fa-phone"></i> 0532 519 72 54</span>
+    <span><i class="fas fa-truck"></i> Kargo Takibi</span>
+    <span><i class="fas fa-star"></i> Referanslar</span>
+    <span><i class="fas fa-images"></i> Galeri</span>
+    <span><i class="fas fa-store"></i> Bayilik Başvurusu</span>
+  </div>
+
+  <header class="header">
+    <div class="logo">
+      <a href="index.html"><span class="logo-text">100ŞARJ</span></a>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Ürün arama..." id="searchInput"/>
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="header-icons">
+      <a href="#" onclick="profilGit()"><i class="fas fa-user"></i></a>
+      <a href="#" class="wishlist-icon"><i class="fas fa-heart"></i><span class="badge" id="wishlistCount">0</span></a>
+      <a href="sepet.html" class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="badge" id="cartCount">0</span></a>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a>
+    <a href="urunler.html?kategori=sarj-standi">Şarj Standı</a>
+    <a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a>
+    <a href="urunler.html?kategori=usb-kablo">USB Kablo</a>
+  </nav>
+
+  <div class="urunler-container">
+    <aside class="filtre">
+      <h3>Kategoriler</h3>
+      <ul>
+        <li><a href="urunler.html">Tümü</a></li>
+        <li><a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a></li>
+        <li><a href="urunler.html?kategori=sarj-standi">Şarj Standı</a></li>
+        <li><a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a></li>
+        <li><a href="urunler.html?kategori=usb-kablo">USB Kablo</a></li>
+      </ul>
+      <h3 style="margin-top:20px">Fiyat</h3>
+      <input type="range" min="0" max="5000" value="5000" id="fiyatRange" style="width:100%"/>
+      <p>Max: <span id="fiyatDeger">5000</span> TL</p>
+    </aside>
+
+    <main class="urun-listesi">
+      <div class="liste-header">
+        <h2 id="kategoriBaslik">Tüm Ürünler</h2>
+        <select id="sirala">
+          <option value="">Sıralama</option>
+          <option value="fiyat-artan">Fiyat Artan</option>
+          <option value="fiyat-azalan">Fiyat Azalan</option>
+        </select>
+      </div>
+      <div class="products-grid" id="productsGrid">
+        <div class="yukleniyor">Ürünler yükleniyor...</div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-col">
+      <h4>Kategoriler</h4>
+      <a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a>
+      <a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a>
+      <a href="urunler.html?kategori=sarj-standi">Şarj Standı</a>
+      <a href="urunler.html?kategori=usb-kablo">USB Kablo</a>
+    </div>
+    <div class="footer-col">
+      <h4>Bize Ulaşın</h4>
+      <p><i class="fas fa-phone"></i> 0532 519 72 54</p>
+      <p><i class="fas fa-envelope"></i> info@100sarj.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> Başiskele/KOCAELİ</p>
+    </div>
+  </footer>
+
+  <a href="tel:05325197254" class="phone-btn"><i class="fas fa-phone"></i> 0 532 519 72 54</a>
+  <a href="https://wa.me/905325197254" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <script src="js/main.js"></script>
+  <script src="js/urunler.js">
+    function profilGit() {
+  const token = localStorage.getItem('token');
+  window.location.href = token ? 'hesabim.html' : 'giris.html';
+}
+  </script>
+</body>
+</html>

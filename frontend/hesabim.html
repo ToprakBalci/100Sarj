@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hesabım | 100Şarj</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; }
+    .top-bar { background: #fff; border-bottom: 1px solid #eee; padding: 8px 40px; display: flex; gap: 28px; font-size: 13px; color: #444; }
+    .top-bar span { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .top-bar span:hover { color: #c9a227; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid #eee; background: #fff; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-crown { color: #c9a227; font-size: 28px; }
+    .logo-text { font-size: 26px; font-weight: 900; color: #c9a227; letter-spacing: 1px; }
+    .search-bar { display: flex; border: 1.5px solid #ddd; border-radius: 4px; overflow: hidden; width: 380px; }
+    .search-bar input { flex: 1; padding: 10px 16px; border: none; outline: none; font-size: 14px; }
+    .search-bar button { background: #fff; border: none; padding: 0 16px; cursor: pointer; color: #888; font-size: 16px; }
+    .header-icons { display: flex; align-items: center; gap: 20px; }
+    .header-icons a { color: #333; font-size: 20px; text-decoration: none; position: relative; }
+    .header-icons a:hover { color: #c9a227; }
+    .badge { position: absolute; top: -8px; right: -10px; background: #c9a227; color: #fff; font-size: 10px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    .navbar { display: flex; justify-content: center; gap: 80px; padding: 16px 40px; border-bottom: 1px solid #eee; background: #fff; }
+    .navbar a { text-decoration: none; color: #222; font-size: 15px; font-weight: 500; }
+    .navbar a:hover { color: #c9a227; }
+
+    .hesabim-container { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 250px 1fr; gap: 30px; }
+
+    .hesabim-sidebar { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); height: fit-content; }
+    .hesabim-sidebar .kullanici-info { background: #c9a227; color: #fff; padding: 25px 20px; text-align: center; }
+    .hesabim-sidebar .kullanici-info i { font-size: 48px; margin-bottom: 10px; display: block; }
+    .hesabim-sidebar .kullanici-info h3 { font-size: 16px; font-weight: 700; }
+    .hesabim-sidebar .kullanici-info p { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+    .hesabim-sidebar ul { list-style: none; }
+    .hesabim-sidebar ul li { border-bottom: 1px solid #f0f0f0; }
+    .hesabim-sidebar ul li a { display: flex; align-items: center; gap: 12px; padding: 14px 20px; color: #444; text-decoration: none; font-size: 14px; transition: all 0.2s; }
+    .hesabim-sidebar ul li a:hover, .hesabim-sidebar ul li a.aktif { color: #c9a227; background: #fdf8ed; border-left: 3px solid #c9a227; }
+    .hesabim-sidebar ul li a i { width: 18px; text-align: center; }
+
+    .hesabim-icerik { background: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .hesabim-icerik h2 { font-size: 20px; font-weight: 700; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #c9a227; }
+
+    .tab { display: none; }
+    .tab.aktif { display: block; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #666; margin-bottom: 7px; text-transform: uppercase; }
+    .form-group input { width: 100%; padding: 12px 15px; border: 1.5px solid #ddd; border-radius: 4px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: #c9a227; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .btn-gold { background: #c9a227; color: #fff; border: none; padding: 12px 30px; border-radius: 4px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .btn-gold:hover { background: #b8911f; }
+
+    .siparis-kart { border: 1px solid #eee; border-radius: 8px; padding: 20px; margin-bottom: 15px; }
+    .siparis-kart .siparis-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .siparis-kart .siparis-id { font-weight: 700; font-size: 15px; }
+    .siparis-kart .siparis-tarih { font-size: 13px; color: #888; }
+    .durum-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .durum-beklemede { background: #fff3cd; color: #856404; }
+    .durum-onaylandi { background: #d1e7dd; color: #0f5132; }
+    .durum-kargoda { background: #cfe2ff; color: #084298; }
+    .durum-teslim-edildi { background: #d1e7dd; color: #0f5132; }
+    .durum-iptal { background: #f8d7da; color: #842029; }
+    .siparis-toplam { font-weight: 700; color: #c9a227; font-size: 16px; }
+    .bos-mesaj { text-align: center; padding: 50px; color: #888; }
+    .bos-mesaj i { font-size: 48px; margin-bottom: 15px; display: block; }
+
+    .basari-mesaj { background: #d1e7dd; color: #0f5132; padding: 12px 16px; border-radius: 4px; font-size: 13px; margin-bottom: 18px; display: none; }
+    .basari-mesaj.aktif { display: block; }
+
+    .footer { background: #c9a227; color: #fff; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; padding: 50px 60px; margin-top: 60px; }
+    .footer h4 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+    .footer a { display: block; color: #fff; text-decoration: none; font-size: 13px; margin-bottom: 8px; opacity: 0.9; }
+    .footer p { font-size: 13px; opacity: 0.9; margin-bottom: 8px; }
+    .phone-btn { position: fixed; bottom: 30px; left: 20px; background: #222; color: #fff; padding: 12px 20px; border-radius: 50px; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 8px; z-index: 999; font-weight: 600; }
+    .whatsapp-btn { position: fixed; bottom: 30px; right: 20px; background: #25d366; color: #fff; width: 52px; height: 52px; border-radius: 50%; font-size: 24px; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 999; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <span><i class="fas fa-phone"></i> 0532 519 72 54</span>
+    <span><i class="fas fa-truck"></i> Kargo Takibi</span>
+    <span><i class="fas fa-star"></i> Referanslar</span>
+    <span><i class="fas fa-images"></i> Galeri</span>
+    <span><i class="fas fa-store"></i> Bayilik Başvurusu</span>
+  </div>
+
+  <header class="header">
+    <a href="index.html" class="logo">
+      <span class="logo-crown"><i class="fas fa-crown"></i></span>
+      <span class="logo-text">100ŞARJ</span>
+    </a>
+    <div class="search-bar">
+      <input type="text" placeholder="Ürün arama..."/>
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="header-icons">
+      <a href="hesabim.html"><i class="fas fa-user"></i></a>
+      <a href="#"><i class="fas fa-heart"></i><span class="badge">0</span></a>
+      <a href="sepet.html"><i class="fas fa-shopping-cart"></i><span class="badge">0</span></a>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a>
+    <a href="urunler.html?kategori=sarj-standi">Şarj Standı</a>
+    <a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a>
+    <a href="urunler.html?kategori=usb-kablo">USB Kablo</a>
+  </nav>
+
+  <div class="hesabim-container">
+    <aside class="hesabim-sidebar">
+      <div class="kullanici-info">
+        <i class="fas fa-user-circle"></i>
+        <h3 id="kullaniciAd">Yükleniyor...</h3>
+        <p id="kullaniciEmail"></p>
+      </div>
+      <ul>
+        <li><a href="#" class="aktif" onclick="sekmeAc('siparisler', this)"><i class="fas fa-box"></i> Siparişlerim</a></li>
+        <li><a href="#" onclick="sekmeAc('bilgiler', this)"><i class="fas fa-user"></i> Bilgilerimi Güncelle</a></li>
+        <li><a href="#" onclick="sekmeAc('sifre', this)"><i class="fas fa-lock"></i> Şifre Değiştir</a></li>
+        <li><a href="#" onclick="cikisYap()"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a></li>
+      </ul>
+    </aside>
+
+    <main class="hesabim-icerik">
+      <!-- SİPARİŞLER -->
+      <div id="tab-siparisler" class="tab aktif">
+        <h2>Siparişlerim</h2>
+        <div id="siparisListesi">
+          <div class="bos-mesaj"><i class="fas fa-box-open"></i><p>Henüz siparişiniz bulunmamaktadır.</p></div>
+        </div>
+      </div>
+
+      <!-- BİLGİLER -->
+      <div id="tab-bilgiler" class="tab">
+        <h2>Bilgilerimi Güncelle</h2>
+        <div id="bilgiBasari" class="basari-mesaj"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Ad</label><input type="text" id="guncelAd"/></div>
+          <div class="form-group"><label>Soyad</label><input type="text" id="guncelSoyad"/></div>
+        </div>
+        <div class="form-group"><label>Telefon</label><input type="text" id="guncelTelefon"/></div>
+        <div class="form-group"><label>Adres</label><input type="text" id="guncelAdres"/></div>
+        <button class="btn-gold" onclick="bilgileriGuncelle()">Kaydet</button>
+      </div>
+
+      <!-- ŞİFRE -->
+      <div id="tab-sifre" class="tab">
+        <h2>Şifre Değiştir</h2>
+        <div id="sifreBasari" class="basari-mesaj"></div>
+        <div class="form-group"><label>Mevcut Şifre</label><input type="password" id="mevcutSifre"/></div>
+        <div class="form-group"><label>Yeni Şifre</label><input type="password" id="yeniSifre"/></div>
+        <div class="form-group"><label>Yeni Şifre Tekrar</label><input type="password" id="yeniSifreTekrar"/></div>
+        <button class="btn-gold" onclick="sifreDegistir()">Şifreyi Güncelle</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div><h4>Kategoriler</h4><a href="#">100Şarj Cihazları</a><a href="#">Şarj Adaptörleri</a><a href="#">Şarj Standı</a><a href="#">USB Kablo</a></div>
+    <div><h4>Hızlı Erişim</h4><a href="#">Hesabım</a><a href="#">İletişim</a><a href="sepet.html">Sepet</a></div>
+    <div><h4>Önemli Bilgiler</h4><a href="#">Hakkımızda</a><a href="#">Siparişlerim</a></div>
+    <div><h4>Bize Ulaşın</h4><p><i class="fas fa-phone"></i> 0532 519 72 54</p><p><i class="fas fa-envelope"></i> info@100sarj.com</p></div>
+  </footer>
+
+  <a href="tel:05325197254" class="phone-btn"><i class="fas fa-phone"></i> 0 532 519 72 54</a>
+  <a href="https://wa.me/905325197254" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <script>
+    const API = 'http://localhost:5000/api';
+    const token = localStorage.getItem('token');
+    const kullanici = JSON.parse(localStorage.getItem('kullanici') || '{}');
+
+    // Giriş kontrolü
+    if (!token) window.location.href = 'giris.html';
+
+    // Kullanıcı bilgilerini göster
+    document.getElementById('kullaniciAd').textContent = kullanici.ad || 'Kullanıcı';
+    document.getElementById('kullaniciEmail').textContent = kullanici.email || '';
+
+    function sekmeAc(sekme, el) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('aktif'));
+      document.querySelectorAll('.hesabim-sidebar a').forEach(a => a.classList.remove('aktif'));
+      document.getElementById(`tab-${sekme}`).classList.add('aktif');
+      if (el) el.classList.add('aktif');
+    }
+
+    function cikisYap() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('kullanici');
+      window.location.href = 'giris.html';
+    }
+
+    // Siparişleri yükle
+    async function siparisleriYukle() {
+      try {
+        const res = await fetch(`${API}/orders/benim`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const siparisler = await res.json();
+        const liste = document.getElementById('siparisListesi');
+        if (!siparisler.length) return;
+        liste.innerHTML = siparisler.map(s => `
+          <div class="siparis-kart">
+            <div class="siparis-header">
+              <span class="siparis-id">#${s._id.slice(-6).toUpperCase()}</span>
+              <span class="siparis-tarih">${new Date(s.createdAt).toLocaleDateString('tr-TR')}</span>
+              <span class="durum-badge durum-${s.durum}">${s.durum}</span>
+            </div>
+            <p style="font-size:13px;color:#666;margin-bottom:8px">${s.teslimatAdresi}</p>
+            <p class="siparis-toplam">${s.toplamFiyat} TL</p>
+          </div>
+        `).join('');
+      } catch(e) { console.log(e); }
+    }
+
+    function bilgileriGuncelle() {
+      const basari = document.getElementById('bilgiBasari');
+      basari.textContent = '✅ Bilgileriniz güncellendi!';
+      basari.classList.add('aktif');
+      setTimeout(() => basari.classList.remove('aktif'), 3000);
+    }
+
+    function sifreDegistir() {
+      const yeni = document.getElementById('yeniSifre').value;
+      const tekrar = document.getElementById('yeniSifreTekrar').value;
+      const basari = document.getElementById('sifreBasari');
+      if (yeni !== tekrar) { alert('Şifreler eşleşmiyor!'); return; }
+      basari.textContent = '✅ Şifreniz güncellendi!';
+      basari.classList.add('aktif');
+      setTimeout(() => basari.classList.remove('aktif'), 3000);
+    }
+
+    siparisleriYukle();
+  </script>
+</body>
+</html>

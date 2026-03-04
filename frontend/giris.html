@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giriş Yap | 100Şarj</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #222; }
+    .top-bar { background: #fff; border-bottom: 1px solid #eee; padding: 8px 40px; display: flex; gap: 28px; font-size: 13px; color: #444; }
+    .top-bar span { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .top-bar span:hover { color: #c9a227; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid #eee; background: #fff; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-crown { color: #c9a227; font-size: 28px; }
+    .logo-text { font-size: 26px; font-weight: 900; color: #c9a227; letter-spacing: 1px; }
+    .search-bar { display: flex; border: 1.5px solid #ddd; border-radius: 4px; overflow: hidden; width: 380px; }
+    .search-bar input { flex: 1; padding: 10px 16px; border: none; outline: none; font-size: 14px; }
+    .search-bar button { background: #fff; border: none; padding: 0 16px; cursor: pointer; color: #888; font-size: 16px; }
+    .header-icons { display: flex; align-items: center; gap: 20px; }
+    .header-icons a { color: #333; font-size: 20px; text-decoration: none; position: relative; }
+    .header-icons a:hover { color: #c9a227; }
+    .badge { position: absolute; top: -8px; right: -10px; background: #c9a227; color: #fff; font-size: 10px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    .navbar { display: flex; justify-content: center; gap: 80px; padding: 16px 40px; border-bottom: 1px solid #eee; }
+    .navbar a { text-decoration: none; color: #222; font-size: 15px; font-weight: 500; }
+    .navbar a:hover { color: #c9a227; }
+    .giris-wrapper { max-width: 1100px; margin: 60px auto 80px; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .giris-sol h2, .giris-sag h2 { font-size: 20px; font-weight: 700; color: #222; padding-bottom: 14px; border-bottom: 2px solid #222; margin-bottom: 28px; text-transform: uppercase; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #444; margin-bottom: 7px; text-transform: uppercase; }
+    .form-group input { width: 100%; padding: 13px 16px; border: 1.5px solid #ddd; border-radius: 3px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: #c9a227; }
+    .form-group input::placeholder { color: #bbb; }
+    .sifremi-unuttum { text-align: right; margin-bottom: 20px; }
+    .sifremi-unuttum a { font-size: 13px; color: #666; text-decoration: none; }
+    .sifremi-unuttum a:hover { color: #c9a227; }
+    .btn-gold-full { width: 100%; background: #c9a227; color: #fff; border: none; padding: 15px; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 3px; margin-bottom: 14px; transition: background 0.2s; }
+    .btn-gold-full:hover { background: #b8911f; }
+    .btn-outline-full { width: 100%; background: #fff; color: #333; border: 1.5px solid #ccc; padding: 14px; font-size: 14px; font-weight: 600; text-transform: uppercase; cursor: pointer; border-radius: 3px; margin-bottom: 22px; transition: all 0.2s; }
+    .btn-outline-full:hover { border-color: #c9a227; color: #c9a227; }
+    .sosyal-giris { display: flex; gap: 16px; justify-content: center; }
+    .btn-sosyal { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border: 1.5px solid #ddd; border-radius: 3px; background: #fff; font-size: 14px; cursor: pointer; color: #333; text-decoration: none; transition: all 0.2s; }
+    .btn-sosyal:hover { border-color: #c9a227; }
+    .btn-sosyal .fa-google { color: #ea4335; }
+    .btn-sosyal .fa-facebook { color: #1877f2; }
+    .hata-mesaj { background: #fff3cd; color: #856404; padding: 10px 14px; border-radius: 3px; font-size: 13px; margin-bottom: 16px; display: none; }
+    .hata-mesaj.aktif { display: block; }
+    .giris-sag .tanitim-text { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+    .giris-sag ul { list-style: disc; padding-left: 20px; margin-bottom: 36px; }
+    .giris-sag ul li { font-size: 14px; color: #444; margin-bottom: 10px; line-height: 1.5; }
+    .advantages { display: flex; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .adv-box { flex: 1; display: flex; align-items: center; gap: 14px; padding: 22px 30px; border-right: 1px solid #eee; font-size: 14px; font-weight: 600; }
+    .adv-box:last-child { border-right: none; }
+    .adv-box i { font-size: 28px; color: #555; }
+    .sosyal-section { text-align: center; padding: 30px 20px; border-bottom: 1px solid #eee; }
+    .sosyal-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+    .sosyal-section a { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border: 1.5px solid #ccc; border-radius: 50%; color: #555; text-decoration: none; }
+    .sosyal-section a:hover { border-color: #c9a227; color: #c9a227; }
+    .footer { background: #c9a227; color: #fff; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; padding: 50px 60px; }
+    .footer h4 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+    .footer a { display: block; color: #fff; text-decoration: none; font-size: 13px; margin-bottom: 8px; opacity: 0.9; }
+    .footer a:hover { opacity: 1; text-decoration: underline; }
+    .footer p { font-size: 13px; opacity: 0.9; margin-bottom: 8px; }
+    .footer-bottom { text-align: center; padding: 16px; font-size: 12px; color: #888; border-top: 1px solid #eee; }
+    .phone-btn { position: fixed; bottom: 30px; left: 20px; background: #222; color: #fff; padding: 12px 20px; border-radius: 50px; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 8px; z-index: 999; font-weight: 600; }
+    .whatsapp-btn { position: fixed; bottom: 30px; right: 20px; background: #25d366; color: #fff; width: 52px; height: 52px; border-radius: 50%; font-size: 24px; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 999; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <span><i class="fas fa-phone"></i> 0532 519 72 54</span>
+    <span><i class="fas fa-truck"></i> Kargo Takibi</span>
+    <span><i class="fas fa-star"></i> Referanslar</span>
+    <span><i class="fas fa-images"></i> Galeri</span>
+    <span><i class="fas fa-store"></i> Bayilik Başvurusu</span>
+  </div>
+
+  <header class="header">
+    <a href="index.html" class="logo">
+      <span class="logo-crown"><i class="fas fa-crown"></i></span>
+      <span class="logo-text">100ŞARJ</span>
+    </a>
+    <div class="search-bar">
+      <input type="text" placeholder="Ürün arama..."/>
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="header-icons">
+      <a href="giris.html"><i class="fas fa-user"></i></a>
+      <a href="#"><i class="fas fa-heart"></i><span class="badge">0</span></a>
+      <a href="sepet.html"><i class="fas fa-shopping-cart"></i><span class="badge">0</span></a>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <a href="urunler.html?kategori=100sarj-cihazlari">100Şarj Cihazları</a>
+    <a href="urunler.html?kategori=sarj-standi">Şarj Standı</a>
+    <a href="urunler.html?kategori=sarj-adaptoru">Şarj Adaptörleri</a>
+    <a href="urunler.html?kategori=usb-kablo">USB Kablo</a>
+  </nav>
+
+  <div class="giris-wrapper">
+    <div class="giris-sol">
+      <h2>Üye Girişi</h2>
+      <div id="girisHata" class="hata-mesaj"></div>
+      <div class="form-group">
+        <label>E-Posta Adresiniz *</label>
+        <input type="email" id="girisEmail" placeholder="Lütfen e-posta adresinizi yazınız"/>
+      </div>
+      <div class="form-group">
+        <label>Şifreniz *</label>
+        <input type="password" id="girisSifre" placeholder="Lütfen şifrenizi yazınız"/>
+      </div>
+      <div class="sifremi-unuttum"><a href="#">Şifremi Unuttum</a></div>
+      <button class="btn-gold-full" onclick="girisYap()">Oturum Aç</button>
+      <button class="btn-outline-full" onclick="window.location.href='index.html'">Üye Olmadan Devam Et</button>
+      <div class="sosyal-giris">
+        <a href="#" class="btn-sosyal"><i class="fab fa-facebook"></i> ile bağlan</a>
+        <a href="#" class="btn-sosyal" onclick="googleIleBaglan(); return false;"><i class="fab fa-google"></i> ile bağlan</a>
+      </div>
+    </div>
+
+    <div class="giris-sag">
+      <h2>Üye Ol</h2>
+      <p class="tanitim-text">Mağazamıza üye olun, pek çok avantajdan faydalanmaya başlayın!</p>
+      <ul>
+        <li>Kampanyalardan öncelikli olarak haberdar olabilirsiniz.</li>
+        <li>Sipariş durumunuzu takip edebilir ve önceki siparişlerinize göz atabilirsiniz.</li>
+        <li>Güvenli alışveriş ile hesabınıza dair puan ve kupon gibi tüm alanlara erişim sağlayabilirsiniz.</li>
+      </ul>
+      <button class="btn-outline-full" onclick="window.location.href='kayit.html'">Üye Ol</button>
+    </div>
+  </div>
+
+  <section class="advantages">
+    <div class="adv-box"><i class="fas fa-shopping-cart"></i><span>Müşteri Memnuniyeti</span></div>
+    <div class="adv-box"><i class="fas fa-truck"></i><span>Hızlı Teslimat</span></div>
+    <div class="adv-box"><i class="fas fa-shield-alt"></i><span>Güvenli Alışveriş</span></div>
+    <div class="adv-box"><i class="fas fa-undo"></i><span>Kolay İade</span></div>
+  </section>
+
+  <div class="sosyal-section">
+    <h3>Bizi Sosyal Medyadan Takip Edin!</h3>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
+
+  <footer class="footer">
+    <div>
+      <h4>Kategoriler</h4>
+      <a href="#">100Şarj Cihazları</a>
+      <a href="#">Şarj Adaptörleri</a>
+      <a href="#">Şarj Standı</a>
+      <a href="#">USB Kablo</a>
+    </div>
+    <div>
+      <h4>Hızlı Erişim</h4>
+      <a href="#">Hesabım</a>
+      <a href="#">İletişim</a>
+      <a href="#">Alışveriş Sepeti</a>
+      <a href="#">Kasaya Git</a>
+    </div>
+    <div>
+      <h4>Önemli Bilgiler</h4>
+      <a href="#">Hakkımızda</a>
+      <a href="#">Siparişlerim</a>
+      <a href="#">Alışveriş Listem</a>
+      <a href="#">Şifremi Unuttum</a>
+    </div>
+    <div>
+      <h4>Bize Ulaşın</h4>
+      <p><i class="fas fa-map-marker-alt"></i> Selahaddin Eyyubi Cad. No.20 Başiskele/KOCAELİ</p>
+      <p><i class="fas fa-phone"></i> 0532 519 72 54</p>
+      <p><i class="fas fa-envelope"></i> info@100sarj.com</p>
+    </div>
+  </footer>
+  <div class="footer-bottom">Bu site, <strong>BilgiKurumsal</strong> E-Ticaret Yazılımları ile hazırlanmıştır.</div>
+
+  <a href="tel:05325197254" class="phone-btn"><i class="fas fa-phone"></i> 0 532 519 72 54</a>
+  <a href="https://wa.me/905325197254" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <script>
+    async function girisYap() {
+      const email = document.getElementById('girisEmail').value.trim();
+      const sifre = document.getElementById('girisSifre').value.trim();
+      const hata = document.getElementById('girisHata');
+      hata.classList.remove('aktif');
+
+      if (!email || !sifre) {
+        hata.textContent = 'E-posta ve şifre alanları zorunludur.';
+        hata.classList.add('aktif');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/giris', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, sifre })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          hata.textContent = data.mesaj || 'Giriş başarısız.';
+          hata.classList.add('aktif');
+        } else {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('kullanici', JSON.stringify(data.kullanici));
+          window.location.href = data.kullanici.rol === 'admin' ? 'admin.html' : 'index.html';
+        }
+      } catch (e) {
+        hata.textContent = 'Sunucuya bağlanılamadı.';
+        hata.classList.add('aktif');
+      }
+    }
+
+    async function googleIleBaglan() {
+      const hata = document.getElementById('girisHata');
+      try {
+        const tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: '431666483573-0pe0lcngu0ch4tlq1s15gj321piv1l87.apps.googleusercontent.com',
+          scope: 'email profile',
+          callback: async (tokenResponse) => {
+            if (tokenResponse.error) {
+              hata.textContent = 'Google ile giriş iptal edildi.';
+              hata.classList.add('aktif');
+              return;
+            }
+            const userRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+              headers: { Authorization: 'Bearer ' + tokenResponse.access_token }
+            });
+            const userInfo = await userRes.json();
+            const res = await fetch('/api/auth/google', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: userInfo.email, ad: userInfo.given_name, soyad: userInfo.family_name || '', googleId: userInfo.sub })
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              hata.textContent = data.mesaj || 'Google ile giriş başarısız.';
+              hata.classList.add('aktif');
+            } else {
+              localStorage.setItem('token', data.token);
+              localStorage.setItem('kullanici', JSON.stringify(data.kullanici));
+              window.location.href = data.kullanici.rol === 'admin' ? 'admin.html' : 'index.html';
+            }
+          }
+        });
+        tokenClient.requestAccessToken();
+      } catch (e) {
+        hata.textContent = 'Google ile giriş başarısız!';
+        hata.classList.add('aktif');
+      }
+    }
+  </script>
+</body>
+</html>

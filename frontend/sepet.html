@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sepetim | 100Şarj</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/sepet.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">
+      <a href="index.html"><span class="logo-text">100ŞARJ</span></a>
+    </div>
+    <div class="header-icons">
+      <a href="#" onclick="profilGit()"><i class="fas fa-user"></i></a>
+      <a href="sepet.html"><i class="fas fa-shopping-cart"></i><span class="badge" id="cartCount">0</span></a>
+    </div>
+  </header>
+
+  <div class="sepet-container">
+    <h2>Alışveriş Sepetim</h2>
+    <div class="sepet-icerik">
+      <div class="sepet-urunler" id="sepetUrunler"></div>
+      <div class="sepet-ozet">
+        <h3>Sipariş Özeti</h3>
+        <div class="ozet-satir">
+          <span>Ara Toplam</span>
+          <span id="araToplam">0 TL</span>
+        </div>
+        <div class="ozet-satir">
+          <span>Kargo</span>
+          <span id="kargoUcret">Ücretsiz</span>
+        </div>
+        <div class="ozet-satir toplam">
+          <span>Toplam</span>
+          <span id="genelToplam">0 TL</span>
+        </div>
+        <div class="form-group" style="margin-top:15px">
+          <label>Teslimat Adresi</label>
+          <textarea id="teslimatAdresi" rows="3" placeholder="Adresinizi girin..."></textarea>
+        </div>
+        <button class="btn-gold" style="width:100%" onclick="siparisVer()">Siparişi Tamamla</button>
+        <a href="urunler.html" class="devam-btn">Alışverişe Devam Et</a>
+      </div>
+    </div>
+  </div>
+
+  <a href="tel:05325197254" class="phone-btn"><i class="fas fa-phone"></i> 0 532 519 72 54</a>
+  <a href="https://wa.me/905325197254" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <script src="js/main.js"></script>
+  <script src="js/sepet.js">
+    function profilGit() {
+  const token = localStorage.getItem('token');
+  window.location.href = token ? 'hesabim.html' : 'giris.html';
+}
+  </script>
+</body>
+</html>
