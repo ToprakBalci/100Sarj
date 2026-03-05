@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = 'https://100sarj-production.up.railway.app/api';
 
 function sekmeGec(sekme) {
   document.getElementById('girisBox').style.display = sekme === 'giris' ? 'block' : 'none';
