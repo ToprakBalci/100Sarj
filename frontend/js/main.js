@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api';
+const API = 'https://100sarj-production.up.railway.app/api';
 
 // Sepet
 let sepet = JSON.parse(localStorage.getItem('sepet')) || [];
